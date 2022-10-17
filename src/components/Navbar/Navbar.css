@@ -1,0 +1,87 @@
+nav{
+    align-items: center;
+    /* background: rgb(33, 0, 36);
+    background: linear-gradient(90deg, rgba(33, 0, 36, 1) 0%, rgba(166, 42, 184, 1) 0%, rgba(0, 185, 255, 1) 100%); */
+    background: rgb(73, 1, 83);
+    background: linear-gradient(90deg, rgba(73, 1, 83, 1) 0%, rgba(121, 3, 138, 1) 29%, rgba(31, 133, 225, 1) 82%, rgba(160, 215, 236, 1) 100%);
+    /* background:#0B0E21; */
+    box-shadow: 0px 2px 7px black;
+    display: flex;
+    justify-content: space-between;
+    min-height: 100px;
+    padding: 0 20px;
+}
+
+nav .nav-brand{
+    color: white;
+    font-size: 2em;
+}
+
+.toolbox{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.toolbox label{
+    color:white;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+}
+
+.toolbox > div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.toolbox button{
+    background-color: black;
+    border-radius: 5px;
+    border: none;
+    color: #f1f1f1;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 10px;
+    outline: none;
+    padding: 13px 10px;
+}
+
+.toolbox select, input[type='range']{
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.toolbox input, select, button{
+    min-width: 130px;
+}
+
+.toolbox select {
+    background: black;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 5px 5px;
+}
+
+@media(max-width: 992px){
+    nav{
+        flex-direction: column;
+    }
+
+    .toolbox{
+        display: block;
+        text-align: center;
+    }
+
+    .toolbox > div{
+        margin: 10px 0;
+    }
+
+    .speed{
+        display: none;
+    }
+}
