@@ -27,9 +27,5 @@ Check out our App at [Sorting Visualizer](https://effortless-llama-edff71.netlif
 
 React,  HTML, CSS, JavaScript
 
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
 
 
