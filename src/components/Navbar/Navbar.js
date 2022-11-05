@@ -14,7 +14,6 @@ const colourStyles= {
         { ...styles, 
             backgroundColor: 'black', 
             fontWeight: "bold",
-            color: "white",
             width: 200,
             height: 44,
     }),
