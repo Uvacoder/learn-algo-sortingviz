@@ -51,7 +51,7 @@ function App() {
 
 	// setting the selected algorithm
 	const handleAlgo = (event) => {
-		setAlgo(event.target.value)
+		setAlgo(event.value)
 	}
 
 	// handling the length of the array
