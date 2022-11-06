@@ -31,6 +31,7 @@ function ListBlocks({ blocks, compare, sorted, swap }){
                     bg = '#DA2148'
                 }
                 // i th element is in its correct position
+                console.log("sorted", sorted)
                 if(sorted && sorted.includes(i)){
                     bg='#FBB454'
                 }

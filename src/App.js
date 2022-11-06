@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSortStore , shallow } from "./Store"
 import './App.css'
 
 import Navbar from './components/Navbar/Navbar'
@@ -12,8 +13,21 @@ import insertionSort from './algorithms/insertionSort'
 import selectionSort from './algorithms/selectionSort'
 import mergeSort from './algorithms/mergeSort'
 import quickSort from './algorithms/quickSort'
+import ResponsivePiano from "./components/Keyboard/ResponsivePiano"
+
+const ConnectedPiano = () => {
+	const [ activeNotes ] = useSortStore((s) => [s.activeNotes], shallow)
+	return <ResponsivePiano activeNotes={activeNotes}/>
+}
 
 function App() {
+	
+	// Store
+	const [ algo, len, blocks, sorting, completed, speed, compare, swap, sortedIndex ] = useSortStore((s) => 
+	[s.algo, s.len, s.blocks, s.sorting, s.completed, s.speed, s.compare, s.swap, s.sortedIndex], shallow)
+	const [ setAlgo, setLength, setBlocks, setSorting, setCompleted, setSpeed, setCompare, setSwap, setSortedIndex, setActiveNotes ] = useSortStore((s) => 
+	[s.setAlgo, s.setLength, s.setBlocks, s.setSorting, s.setCompleted, s.setSpeed, s.setCompare, s.setSwap, s.setSortedIndex, s.setActiveNotes], shallow)
+	
 	// Generating shuffled array of 1 to len
 	const generateRandomArray = (len) => {
 		setCompleted(false)
@@ -33,17 +47,6 @@ function App() {
 		setBlocks(randomArray)
 	}
 
-	// States
-	const [algo, setAlgo] = useState('bubbleSort')
-	const [len, setLength] = useState(30)
-	const [blocks, setBlocks] = useState([])
-	const [sorting, setSorting] = useState(false)
-	const [completed, setCompleted] = useState(true)
-	const [speed, setSpeed] = useState(250)
-	const [compare, setCompare] = useState([])
-	const [swap, setSwap] = useState([])
-	const [sortedIndex, setSortedIndex] = useState([])
-
 	// Generating random array every time the length is changed by th user
 	useEffect(() => {
 		generateRandomArray(len)
@@ -51,43 +54,44 @@ function App() {
 
 	// setting the selected algorithm
 	const handleAlgo = (event) => {
-		setAlgo(event.target.value)
+		setAlgo(event.value)
+		
 	}
 
 	// handling the length of the array
 	const handleLength = (event) => {
-		setLength(Number(event.target.value))
+		const value = Number(event.target.value)
+		setLength(value)
+		// console.log(genNote(value))
+		setActiveNotes([value + 13])
 	}
 
 	// handling the speed of sorting
 	const handleSpeed = (event) => {
-		setSpeed(Math.ceil(400 / Number(event.target.value)))
+		const value =  Number(event.target.value)
+		setSpeed(Math.ceil(400 / value))
 	}
 
 	// Sorting according to the algorithm
+	const upshift = len > 40 ? 20 : 50
 	const handleSort = () => {
-		
 		const sortAccOrder = (order) => {
 			(function loop(i) {
 				setTimeout(function () {
 					const [j, k, arr, index] = order[i]
+					console.log("j, k, arr, index",j, k, arr, index)
 					setCompare([j, k])
+					setActiveNotes([j + upshift, k + upshift])
 					setSwap([])
-
 					if(index !== null){
-						setSortedIndex((prevState) => (
-							[...prevState, index]
-						))
+						setSortedIndex([...sortedIndex, index])
 					}
-		
 					if(arr){
-						
 						setBlocks(arr)
 						if(j !== null || k != null)
-							setSwap([j, k])
-
+							setSwap([j])
+							setTimeout(() => setSwap([k]), speed - 100)
 					}
-
 					if (++i < order.length){
 						loop(i)
 					} else {
@@ -96,7 +100,6 @@ function App() {
 					}   
 				}, speed)
 			})(0)
-			
 		}
 
 		setSorting(true)
@@ -135,6 +138,7 @@ function App() {
 
 			<Legends algo={algo}/>
 			<Info algo = {algo}/>
+			<ConnectedPiano />
 		</div>
 	);
 }
